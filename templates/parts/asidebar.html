@@ -1,0 +1,201 @@
+{% load static %}
+<!-- Main Sidebar Container -->
+
+<aside
+  style="position: fixed"
+  class="main-sidebar sidebar-dark-navy bg-gradient-navy elevation-4">
+  <!-- Brand Logo -->
+  <a
+    href="{% if user.is_authenticated %} {% url 'index_view' %}{% else %}#{% endif %} "
+    class="brand-link">
+    <span class="brand-text font-weight-light">الصفحة الرئيسية</span>
+  </a>
+
+  <!-- Sidebar -->
+
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <ul
+      class="nav nav-pills nav-sidebar flex-column"
+      data-widget="treeview"
+      role="menu"
+      data-accordion="false">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a href="{% url 'profile' %}" class="nav-link">
+          <img
+            class="nav-icon navbar-img"
+            src="{% if user.profile.user_photo %}{{user.profile.user_photo.url}} {% else %}{% static 'home/default_imges/user-defualt.png' %} {% endif %}"
+            alt="" />
+          <p>{{user.first_name}} {{user.last_name}}</p>
+        </a>
+      </li>
+      {% endif %} {% if not user.is_authenticated %}
+      <li class="nav-item">
+        <a href="{% url 'homePage' %}" class="nav-link">
+          <i class="nav-icon fas fa-door-open"></i>
+          <p>تسجيل الدخول</p>
+        </a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <label for="lightSwitch" class="nav-link text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="currentColor"
+            class="nav-icon bi bi-brightness-high"
+            viewBox="0 0 16 16">
+            <path
+              d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+          </svg>
+          <p>تفعيل الوضع الداكن</p>
+          <input class="form-check-input d-none" type="checkbox" id="lightSwitch" />
+        </a>
+      </li>
+    </ul>
+    <!-- Sidebar Menu -->
+    {% if user.is_authenticated %}
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false">
+        <li class="nav-item">
+          <a href="{% url 'home_page' %}" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p>القائمة الرئسية</p>
+          </a>
+        </li>
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                شؤون الموظفين
+                <i class="fas fa-angle-left right"></i>
+                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                  <li style="cursor: pointer;" class="ml-3 nav-item ">
+                    <a href="{% url 'personnel_view' %}"  class="nav-link">
+                      <i class="fas fa-home nav-icon"></i>
+                      <p>الرئيسية</p>
+                    </a>
+                  </li>
+                  <li style="cursor: pointer;" class=" ml-3 nav-item ">
+                    <a href="{% url 'search' %}"  class="nav-link">
+                      <i class="fas fa-tasks nav-icon"></i>
+                      <p>ادارة الموظفين</p>
+                    </a>
+                  </li>
+                  <li style="cursor: pointer;" class=" ml-3 nav-item">
+                    <a href="{% url 'holidays_views' %}" class="nav-link">
+                      <i class="fas fa-calendar-week nav-icon" ></i>
+                      <p>الاجازات</p>
+                    </a>
+                  </li>
+                  <li style="cursor: pointer;" class=" ml-3 nav-item ">
+                    <a href="{% url 'add_employee' %}" class="nav-link">
+                    <i class="fas fa-user-plus nav-icon"></i>
+                     <p>إضافة موظف</p>
+                    </a>
+                  </li>
+                  <li style="cursor: pointer;" class="ml-3 nav-item mb-3">
+                    <a href="{% url 'job_placement' %}" id="" class="nav-link">
+                      <i class="fas fa-file-contract  nav-icon"></i>
+                      <p>أذونات التعاقد</p>
+                    </a>
+                  </li>
+            </ul>
+            </li>
+  
+        <li class="nav-item">
+          <a href="{% url 'statistics_view' %}" class="nav-link">
+            <i class="nav-icon fas fa-signal"></i>
+            <p>الإحصائيـات</p>
+          </a>
+        </li>
+        <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-check"></i>
+                    <p>
+                    الحضور و الإنصراف 
+                    <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li style="cursor: pointer;" class="ml-3 nav-item ">
+                      <a href="{% url 'attends' %}" class="nav-link">
+                        <i class="fas fa-home nav-icon"></i>
+                        <p>الرئيسية</p>
+                      </a>
+                    </li>
+                    <li style="cursor: pointer;" class=" ml-3 nav-item ">
+                      <a href="{% url 'group_index' %}" class="nav-link">
+                        <i class="fas fa-users nav-icon"></i>
+                        <p>المجموعات</p>
+                      </a>
+                    </li>
+                    <li style="cursor: pointer;" class=" ml-3 nav-item">
+                      <a href="{% url 'shifts_index' %}" class="nav-link">
+                        <i class="fas fa-user-clock nav-icon"></i>
+                        <p>الورديات</p>
+                      </a>
+                    </li>
+                    <li style="cursor: pointer;" class=" ml-3 nav-item ">
+                      <a href="{% url 'check_in' %}" class="nav-link">
+                        <i class="fas fa-sign-in-alt nav-icon"></i>
+                        <p>تسجيل حضور</p>
+                      </a>
+                    </li>
+                    <li style="cursor: pointer;" class="ml-3 nav-item mb-3 ">
+                      <a href="{% url 'check_out' %}" class="nav-link">
+                        <i class="fas fa-sign-out-alt nav-icon"></i>
+                        <p>تسجيل الانصراف</p>
+                      </a>
+                    </li>
+                  </ul>
+        </li>
+        {% if user.is_superuser %}
+        <li class="nav-item">
+          <a href="{% url 'profiles' %}" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>المستخدمين</p>
+          </a>
+        </li>
+        {% endif %} {% if user.is_superuser %}
+        <li class="nav-item">
+          <a href="{% url 'settings_view' %}" class="nav-link">
+            <i class="nav-icon fas fa-database"></i>
+            <p>قاعدة البيانات</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'restoredatabase' %}" class="nav-link">
+            <i class="nav-icon fas fa-tools"></i>
+            <p>مركز الصيانة</p>
+          </a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a href="{% url 'support_center' %}" class="nav-link ">
+            <img src="{% static 'home/default_imges/technical_support.png' %}" class="nav-icon">
+            <p>مركز الدعم الفني</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link text-danger">
+            <i class="nav-icon fas fa-door-open"></i>
+            <p>تسجيل الخروج</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  {% endif %}
+  <!-- /.sidebar -->
+</aside>
