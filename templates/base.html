@@ -1,109 +1,167 @@
 <!DOCTYPE html>
 <html lang="ar">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    {% load static %}
-    <link
-      rel="shortcut icon"
-      href="{% static 'dist/img/logo_hr.png' %}"
-      class="rounded-circle"
-      type="image/x-icon" />
-    <title>{% block title %}{% endblock title %}</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'plugins/fontawesome-free/css/all.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'home/css/bootstrap_min.css' %}" />
-    <link rel="stylesheet" href="{% static 'plugins/custom.css' %}" />
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{% static 'plugins/jquery/jquery-ui.css' %}" />
-    <!-- IonIcons -->
-    <link
-      rel="stylesheet"
-      href=" http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'dist/css/adminlte_ar.min.css' %}" />
-    <!-- Google Font: Source Sans Pro -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-      rel="stylesheet" />
-    {% block custom_css %}{% endblock custom_css %}
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  {% load static %}
+  <link rel="shortcut icon" href="{% static 'dist/img/logo_hr.png' %}" class="rounded-circle" type="image/x-icon" />
+  <title>{% block title %}{% endblock title %}</title>
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'home/css/bootstrap_min.css' %}" />
+  <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'plugins/custom.css' %}" />
 
-  <body dir="rtl" class="hold-transition sidebar-mini custom-scrollbar">
-    <style>
-      @font-face {
-        font-family: Jenna;
-        src: url("{% static 'fonts/mothanna_0_02/Mothanna.ttf' %}");
-      }
-      body * {
-        font-family: Jenna;
-      }
-      ::-webkit-scrollbar {
-        width: 20px;
-      }
-      ::-webkit-scrollbar-track {
-        background-color: #343a40;
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #cfd8dc;
-        border-radius: 10px;
-        border: 6px solid transparent;
-        background-clip: content-box;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: #a8bbbf;
-      }
-    </style>
-    <div class="print-container not-index">
-      <nav
-        class="main-header navbar navbar-expand bg-gradient-navy navbar-light">
-        <div class="row align-items-center">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" data-widget="pushmenu" id="menuLink" href="#">
-                <div class="d-inline mt-2 bg-gradient-navy">
-                  <i class="fas fa-bars fa-2x"></i>
-                  <span class="ml-2 h5 mt-1">الــقــائــمــة</span>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{% static 'plugins/jquery/jquery-ui.css' %}" />
+  <!-- IonIcons -->
+  <link rel="stylesheet" href=" http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte_ar.min.css' %}" />
+  {% block custom_css %}{% endblock custom_css %}
+</head>
+
+<body dir="rtl" class="bg-light text-dark sidebar-collapse">
+  <style>
+    @font-face {
+      font-family: Jenna;
+      src: url("{% static 'fonts/mothanna_0_02/Mothanna.ttf' %}");
+    }
+
+    body * {
+      font-family: Jenna;
+    }
+
+    ::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #343a40;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #cfd8dc;
+      border-radius: 10px;
+      border: 6px solid transparent;
+      background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #a8bbbf;
+    }
+
+    .main-footer {
+      background: #fff;
+      border-top: 1px solid #dee2e6;
+      color: #869099;
+      padding: 1rem;
+    }
+    .navbar-dark {
+    background-color: #343a40;
+    }
+    .float-right {
+    float: left!important;
+    }
+  </style>
+  {% include "parts/navbar.html" %}
+  {% block content %} {% endblock %}
+  {% if not user.is_authenticated or not user.is_superuser %}  
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+      <div class="modal-content card bg-dark" style="border-radius: 1rem;">
+        <div class="row">
+          <div class="col-md-6 col-lg-5 d-none d-md-block p-0">
+            <img src="{% static 'index_pictures/sign_in_pic.jpg' %}" alt="login form" class="img-fluid"
+              style="border-radius: 1rem 0 0 1rem; height: 100%;" />
+          </div>
+          <button type="button" class="btn-close position-absolute bg-white" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+          <div class="col-md-6 col-lg-7 d-flex align-items-center p-4 p-lg-5">
+            <div class="card-body w-100">
+              <form method="POST" id="LoginForm">
+                {% csrf_token %}
+                <div class="d-flex align-items-center mb-3 pb-1">
+                  <img scr="{% static 'dist/img/1.png' %}" class=" me-3"></i>
+                  <span class="h1 fw-bold mb-0 text-center">تسجيل الدخول </span>
                 </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col d-none d-sm-flex justify-content-center">
-          <h4 class="text-center mb-1 fs-2 text-bodler fst-italic">
-            {% block sub_title %}{% endblock %}
-          </h4>
-        </div>
 
-        <div class="col-auto">
-          <img
-            class="rounded-circle"
-            style="margin-right: 25px; margin-top: -10px"
-            src="{% static 'dist/img/1.png' %}"
-            alt=""
-            width="80"
-            height="80" />
-          <p class="mb-1" style="font-size: 10px">{{user.profile.job_place}}</p>
+                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0.5px;">منظومة التطعيمات بالمراكز الصحية قصر بن
+                  غشير</h5>
+
+                <div class="form-outline mb-4 d-none" id="messageCount">
+                  <div id="message" ></div>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form2Example17">اسم المستخدم</label>
+                  <input type="text" name="username" id="username" class="form-control form-control-lg" />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form2Example27">كلمة المرور</label>
+                  <input type="password" name="password" id="password"class="form-control form-control-lg" />
+                </div>
+
+                <div class="pt-1 mb-4">
+                  <button class="btn bg-gradient-navy btn-block " style="border-radius:20px;" type="submit">تسجيل
+                    الدخول</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
         </div>
-      </nav>
+      </div>
     </div>
-    {% include 'parts/asidebar.html' %} {% block content %} {% endblock %} 
-    {%include 'parts/footer.html' %}
-    <!-- REQUIRED SCRIPTS -->
-    <!-- jQuery -->
-    <script src="{% static 'plugins/jquery/dist/jquery.js' %}"></script>
-    <!-- AdminLTE -->
-    <script src="{% static 'dist/js/adminlte.js' %}"></script>
-    <!-- BootStrap Files -->
-    <script src="{% static 'plugins/bootstrap/js/bootstrap_bundle.js' %}"></script>
-    <!-- OPTIONAL SCRIPTS -->
-    <script src="{% static 'plugins/switch.js' %}"></script>
-    <script> 
-      jQuery(function () {$.ajaxSetup({headers: {"X-CSRFToken": "{{ csrf_token }}", },});});
-    </script>
-    {% block scripts %} {% endblock scripts %}
-  </body>
+  </div>
+  {% endif %}
+  {% include 'parts/footer.html' %}
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="{% static 'plugins/jquery/dist/jquery.js' %}"></script>
+  <!-- AdminLTE -->
+  <script src="{% static 'dist/js/adminlte.js' %}"></script>
+  <!-- BootStrap Files -->
+  <script src="{% static 'plugins/bootstrap/js/bootstrap_bundle.js' %}"></script>
+  <!-- OPTIONAL SCRIPTS -->
+  <script src="{% static 'plugins/switch.js' %}"></script>
+  <script>
+    jQuery(function () { $.ajaxSetup({ headers: { "X-CSRFToken": "{{ csrf_token }}", }, }); });
+  </script>
+  <script>
+
+    function UpdateMessage(text){
+      $("#messageCount").removeClass("d-none");
+      console.log(text)
+      $("#message").text(text);
+    }
+    $("#LoginForm").on("submit",function(event){
+      event.preventDefault();
+      const username = $("#username").val();
+      const password = $("#password").val();
+      $.ajax({
+        type: "POST",
+        url: "{% url 'login_view' %}",
+        data: {
+          username: username,
+          password: password,
+        },
+        success:function(message){
+         $("#messageCount").removeClass("d-none text-danger").addClass("text-success ");
+         $("#message").text("تم تسجيل الدخول بنجاح ");
+         setTimeout((e)=>{
+          window.location.reload();
+         },3000)
+        },
+        error:function(error){
+          $("#messageCount").removeClass("d-none text-success").addClass("text-danger");
+          $("#message").text("تأكد من اسم المستخدم أو كلمة المرور");
+        }
+      })
+    })
+  </script>
+  {% block scripts %} {% endblock scripts %}
+</body>
+
 </html>

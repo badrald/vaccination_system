@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}حذف مستخدم{% endblock %}
+{% block sub_title %}حذف مستخدم{% endblock %}
+{% block content %}
+
+<div style="direction: rtl" class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper bg-dark">
+    <!-- Content Header (Page header) -->
+    <div class="card card-danger bg-dark">
+      <div class="card-header">
+        <h3 class="card-title">حذف مستخدم</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form method="POST" enctype="multipart/form-data" id="delete_form">
+        {% csrf_token %}
+        <div class="row">
+          <div class="alert mt-2" id="message"></div>
+          <p class="p-3">
+            هل انت متأكد انك تريد حذف المستخدم {{user.first_name}}
+            {{user.last_name}}؟
+          </p>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-danger">حذف</button>
+          <a href="{% url 'profiles' %}" type="submit" class="btn btn-primary">تراجع</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endblock %} {% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $("#message").hide();
+      $.ajaxSetup({
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+      });
+    });
+    $("#delete_form").submit(function (event) {
+      event.preventDefault();
+      $.ajax({
+        url: '{% url "delete_user" user.id %}', // Update the URL endpoint
+        type: "POST",
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          $("#message").removeClass("alert-success alert-danger");
+          $("#message")
+            .addClass("alert-success")
+            .text("تمت علملية بنجاح !")
+            .show();
+          setTimeout(function (params) {
+            window.location = "/accounts/profiles/"
+          }, 2000)
+        },
+        error: function (error) {
+          $("#message").removeClass("alert-success alert-danger");
+          $("#message")
+            .addClass("alert-danger")
+            .text("لا يمكنك حذف هذا المستخدم")
+            .show();
+        },
+      });
+    });
+  </script>
+
+  {% endblock %}
+</div>

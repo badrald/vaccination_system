@@ -3,7 +3,8 @@
 
 <aside
   style="position: fixed"
-  class="main-sidebar sidebar-dark-navy bg-gradient-navy elevation-4">
+  class="main-sidebar sidebar-dark-navy  elevation-4" style="background-color:#1A1F22  !important;
+        color: white !important;">
   <!-- Brand Logo -->
   <a
     href="{% if user.is_authenticated %} {% url 'index_view' %}{% else %}#{% endif %} "
@@ -13,7 +14,7 @@
 
   <!-- Sidebar -->
 
-  <div class="sidebar">
+  <div class="sidebar" style=color: white !important;>
     <!-- Sidebar user panel (optional) -->
     <ul
       class="nav nav-pills nav-sidebar flex-column"
@@ -32,7 +33,7 @@
       </li>
       {% endif %} {% if not user.is_authenticated %}
       <li class="nav-item">
-        <a href="{% url 'homePage' %}" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="nav-icon fas fa-door-open"></i>
           <p>تسجيل الدخول</p>
         </a>
@@ -64,7 +65,7 @@
         role="menu"
         data-accordion="false">
         <li class="nav-item">
-          <a href="{% url 'home_page' %}" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
             <p>القائمة الرئسية</p>
           </a>
@@ -113,52 +114,12 @@
             </li>
   
         <li class="nav-item">
-          <a href="{% url 'statistics_view' %}" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="nav-icon fas fa-signal"></i>
             <p>الإحصائيـات</p>
           </a>
         </li>
-        <li class="nav-item has-treeview">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-user-check"></i>
-                    <p>
-                    الحضور و الإنصراف 
-                    <i class="fas fa-angle-left right"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview">
-                    <li style="cursor: pointer;" class="ml-3 nav-item ">
-                      <a href="{% url 'attends' %}" class="nav-link">
-                        <i class="fas fa-home nav-icon"></i>
-                        <p>الرئيسية</p>
-                      </a>
-                    </li>
-                    <li style="cursor: pointer;" class=" ml-3 nav-item ">
-                      <a href="{% url 'group_index' %}" class="nav-link">
-                        <i class="fas fa-users nav-icon"></i>
-                        <p>المجموعات</p>
-                      </a>
-                    </li>
-                    <li style="cursor: pointer;" class=" ml-3 nav-item">
-                      <a href="{% url 'shifts_index' %}" class="nav-link">
-                        <i class="fas fa-user-clock nav-icon"></i>
-                        <p>الورديات</p>
-                      </a>
-                    </li>
-                    <li style="cursor: pointer;" class=" ml-3 nav-item ">
-                      <a href="{% url 'check_in' %}" class="nav-link">
-                        <i class="fas fa-sign-in-alt nav-icon"></i>
-                        <p>تسجيل حضور</p>
-                      </a>
-                    </li>
-                    <li style="cursor: pointer;" class="ml-3 nav-item mb-3 ">
-                      <a href="{% url 'check_out' %}" class="nav-link">
-                        <i class="fas fa-sign-out-alt nav-icon"></i>
-                        <p>تسجيل الانصراف</p>
-                      </a>
-                    </li>
-                  </ul>
-        </li>
+
         {% if user.is_superuser %}
         <li class="nav-item">
           <a href="{% url 'profiles' %}" class="nav-link">
@@ -181,13 +142,13 @@
         </li>
         {% endif %}
         <li class="nav-item">
-          <a href="{% url 'support_center' %}" class="nav-link ">
+          <a href="#" class="nav-link ">
             <img src="{% static 'home/default_imges/technical_support.png' %}" class="nav-icon">
             <p>مركز الدعم الفني</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'logout' %}" class="nav-link text-danger">
+          <a href="#" class="nav-link text-danger">
             <i class="nav-icon fas fa-door-open"></i>
             <p>تسجيل الخروج</p>
           </a>
