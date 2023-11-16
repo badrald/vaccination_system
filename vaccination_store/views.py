@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import JobPlace,Vaccination
 from .form import JobPlaceForm,VaccinationForm
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test,login_required
 
 
 def is_superuser(user):
@@ -14,7 +14,8 @@ def superuser_required(view_func):
 def index_view(request):
     return render(request,"vaccination_store/index.html")
 
-
+@login_required
+@superuser_required
 def vacciantion(request):
     if request.method == "POST":
         form= VaccinationForm(request.POST)
@@ -28,7 +29,8 @@ def vacciantion(request):
     context= {"form":form,"vaccinations":vaccinations}
     return render(request, "vaccination_store/vaccination.html",context)
 
-
+@login_required
+@superuser_required
 def job_place(request):
     if 'id' in  request.POST:
         id = request.POST['id']
